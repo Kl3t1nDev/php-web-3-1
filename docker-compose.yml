@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  xampp:
+    image: tomsik68/xampp
+    container_name: xampp_server
+    ports:
+      - "8080:80"  # Mapeia a porta 80 do container para a porta 8080 do host
+    volumes:
+      - ./:/opt/lampp/htdocs  # Monta o diretório do projeto como /opt/lampp/htdocs
+    environment:
+      - APACHE_DOCUMENT_ROOT=/opt/lampp/htdocs
+    restart: unless-stopped
