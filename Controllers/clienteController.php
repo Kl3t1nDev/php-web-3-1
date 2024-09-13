@@ -10,7 +10,8 @@ class ClienteController {
             $cliente->dataNascimento = $_POST['dataNascimento'];
 
             if ($cliente->create()) {
-                header("Location: index.php");
+                header("Location: index.php?entity=cliente"); // Redireciona para o índice de clientes
+                exit();
             } else {
                 echo "Erro ao criar cliente!";
             }
@@ -33,7 +34,8 @@ class ClienteController {
             $cliente->dataNascimento = $_POST['dataNascimento'];
 
             if ($cliente->update()) {
-                header("Location: index.php");
+                header("Location: index.php?entity=cliente"); // Redireciona para o índice de clientes
+                exit();
             } else {
                 echo "Erro ao atualizar cliente!";
             }
@@ -47,7 +49,8 @@ class ClienteController {
         $cliente->id = $id;
 
         if ($cliente->delete()) {
-            header("Location: index.php");
+            header("Location: index.php?entity=cliente"); // Redireciona para o índice de clientes
+            exit();
         } else {
             echo "Erro ao excluir cliente!";
         }

@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS orcamentos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    cliente_id INTEGER NOT NULL,
+    kwp TEXT NOT NULL,
+    orientacao TEXT NOT NULL,
+    instalacao TEXT NOT NULL,
+    preco REAL NOT NULL,
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id)
+);
