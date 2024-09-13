@@ -16,8 +16,18 @@ class Database {
 $database = new Database();
 $db = $database->getConnection();
 
-// SQL para criar a tabela
-$sql = "
+// SQL para criar a tabela 'clientes'
+$sqlClientes = "
+CREATE TABLE IF NOT EXISTS clientes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Nome TEXT NOT NULL,
+    CPF TEXT NOT NULL,
+    DataNascimento DATE
+);
+";
+
+// SQL para criar a tabela 'orcamentos'
+$sqlOrcamentos = "
 CREATE TABLE IF NOT EXISTS orcamentos (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     cliente_id INTEGER NOT NULL,
@@ -29,10 +39,17 @@ CREATE TABLE IF NOT EXISTS orcamentos (
 );
 ";
 
-// Executar a SQL para criar a tabela
+// Executar a SQL para criar a tabela 'clientes'
 try {
-    $db->exec($sql);
+    $db->exec($sqlClientes);
 } catch (PDOException $e) {
-    echo "Erro ao criar tabela: " . $e->getMessage();
+    echo "Erro ao criar tabela 'clientes': " . $e->getMessage() . "<br>";
+}
+
+// Executar a SQL para criar a tabela 'orcamentos'
+try {
+    $db->exec($sqlOrcamentos);
+} catch (PDOException $e) {
+    echo "Erro ao criar tabela 'orcamentos': " . $e->getMessage();
 }
 ?>

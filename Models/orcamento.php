@@ -20,7 +20,7 @@ class Orcamento {
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':cliente_id', $this->cliente_id);
         $stmt->execute();
-        return $stmt;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function readAll() {
@@ -30,6 +30,22 @@ class Orcamento {
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function readOne() {
+        $query = "SELECT * FROM " . $this->table . " WHERE id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($data) {
+            $this->cliente_id = $data['cliente_id'];
+            $this->kwp = $data['kwp'];
+            $this->orientacao = $data['orientacao'];
+            $this->instalacao = $data['instalacao'];
+            $this->preco = $data['preco'];
+        }
     }
 
     public function create() {
@@ -79,6 +95,5 @@ class Orcamento {
 
         return $stmt->execute();
     }
-    
 }
 ?>

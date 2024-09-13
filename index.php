@@ -1,5 +1,4 @@
 <?php
-// index.php
 require_once 'controllers/ClienteController.php';
 require_once 'controllers/OrcamentoController.php';
 require_once 'config/database.php';
@@ -31,7 +30,7 @@ $cliente_id = isset($_GET['cliente_id']) ? $_GET['cliente_id'] : null;
     <div class="container mt-4">
         <header>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#">Gerenciador</a>
+                <a class="navbar-brand" href="index.php">Gerenciador</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -39,9 +38,6 @@ $cliente_id = isset($_GET['cliente_id']) ? $_GET['cliente_id'] : null;
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" href="index.php?entity=cliente">Gerenciar Clientes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.php?entity=orcamento">Gerenciar Orçamentos</a>
                         </li>
                     </ul>
                 </div>
@@ -90,7 +86,7 @@ $cliente_id = isset($_GET['cliente_id']) ? $_GET['cliente_id'] : null;
                             break;
 
                         case 'edit':
-                            $orcamentoController->edit($id);
+                            $orcamento = $orcamentoController->edit($id);
                             include 'views/orcamento/edit.php';
                             break;
 
@@ -117,7 +113,6 @@ $cliente_id = isset($_GET['cliente_id']) ? $_GET['cliente_id'] : null;
                     echo '<p class="lead">Escolha uma das opções abaixo para gerenciar clientes e orçamentos.</p>';
                     echo '<ul class="list-unstyled">';
                     echo '<li><a class="btn btn-primary btn-lg" href="index.php?entity=cliente" role="button">Gerenciar Clientes</a></li>';
-                    echo '<li><a class="btn btn-primary btn-lg mt-2" href="index.php?entity=orcamento" role="button">Gerenciar Orçamentos</a></li>';
                     echo '</ul>';
                     echo '</div>';
                     break;
