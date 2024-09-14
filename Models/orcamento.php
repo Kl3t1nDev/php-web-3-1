@@ -15,10 +15,10 @@ class Orcamento {
         $this->db = $db;
     }
 
-    public function read() {
+    public function read($cliente_id) {
         $query = "SELECT * FROM " . $this->table . " WHERE cliente_id = :cliente_id";
         $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':cliente_id', $this->cliente_id);
+        $stmt->bindParam(':cliente_id', $cliente_id);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -52,12 +52,14 @@ class Orcamento {
         $query = "INSERT INTO " . $this->table . " (cliente_id, kwp, orientacao, instalacao, preco) VALUES (:cliente_id, :kwp, :orientacao, :instalacao, :preco)";
         $stmt = $this->db->prepare($query);
 
+        // Limpar os dados
         $this->cliente_id = htmlspecialchars(strip_tags($this->cliente_id));
         $this->kwp = htmlspecialchars(strip_tags($this->kwp));
         $this->orientacao = htmlspecialchars(strip_tags($this->orientacao));
         $this->instalacao = htmlspecialchars(strip_tags($this->instalacao));
         $this->preco = htmlspecialchars(strip_tags($this->preco));
 
+        // Vincular os parâmetros
         $stmt->bindParam(':cliente_id', $this->cliente_id);
         $stmt->bindParam(':kwp', $this->kwp);
         $stmt->bindParam(':orientacao', $this->orientacao);
@@ -71,12 +73,14 @@ class Orcamento {
         $query = "UPDATE " . $this->table . " SET kwp = :kwp, orientacao = :orientacao, instalacao = :instalacao, preco = :preco WHERE id = :id";
         $stmt = $this->db->prepare($query);
 
+        // Limpar os dados
         $this->kwp = htmlspecialchars(strip_tags($this->kwp));
         $this->orientacao = htmlspecialchars(strip_tags($this->orientacao));
         $this->instalacao = htmlspecialchars(strip_tags($this->instalacao));
         $this->preco = htmlspecialchars(strip_tags($this->preco));
         $this->id = htmlspecialchars(strip_tags($this->id));
 
+        // Vincular os parâmetros
         $stmt->bindParam(':kwp', $this->kwp);
         $stmt->bindParam(':orientacao', $this->orientacao);
         $stmt->bindParam(':instalacao', $this->instalacao);

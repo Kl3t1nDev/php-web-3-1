@@ -2,62 +2,38 @@
 require_once 'models/Orcamento.php';
 
 class OrcamentoController {
-    private $db;
-    private $table = "orcamentos";
-
-    public function __construct($db) {
-        $this->db = $db;
-    }
-
-    public function index($cliente_id = null) {
-        // Query para buscar orçamentos
-        $query = "SELECT o.*, c.Nome as cliente_nome FROM " . $this->table . " o
-                  LEFT JOIN clientes c ON o.cliente_id = c.ID";
-        
-        // Adiciona filtro para cliente_id se fornecido
-        if ($cliente_id) {
-            $query .= " WHERE o.cliente_id = :cliente_id";
-        }
-
-        $stmt = $this->db->prepare($query);
-        if ($cliente_id) {
-            $stmt->bindParam(':cliente_id', $cliente_id);
-        }
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
+    
+    // Função para criar um novo orçamento
     public function create() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $cliente_id = $_POST['cliente_id'];
-            $kwp = $_POST['kwp'];
-            $orientacao = $_POST['orientacao'];
-            $instalacao = $_POST['instalacao'];
-            $preco = $_POST['preco'];
+            $orcamento = new Orcamento();
+            $orcamento->cliente_id = $_POST['cliente_id'];
+            $orcamento->kwp = $_POST['kwp'];
+            $orcamento->orientacao = $_POST['orientacao'];
+            $orcamento->instalacao = $_POST['instalacao'];
+            $orcamento->preco = $_POST['preco'];
 
-            // Query para inserir um novo orçamento
-            $query = "INSERT INTO " . $this->table . " (cliente_id, kwp, orientacao, instalacao, preco) VALUES (:cliente_id, :kwp, :orientacao, :instalacao, :preco)";
-            $stmt = $this->db->prepare($query);
-
-            $stmt->bindParam(':cliente_id', $cliente_id);
-            $stmt->bindParam(':kwp', $kwp);
-            $stmt->bindParam(':orientacao', $orientacao);
-            $stmt->bindParam(':instalacao', $instalacao);
-            $stmt->bindParam(':preco', $preco);
-
-            if ($stmt->execute()) {
-                header('Location: index.php?entity=orcamento&cliente_id=' . $cliente_id);
+            if ($orcamento->create()) {
+                // Redireciona para a lista de orçamentos do cliente
+                header('Location: index.php?entity=orcamento&cliente_id=' . $_POST['cliente_id']);
                 exit();
             } else {
-                echo 'Erro ao criar orçamento.';
+                echo "Erro ao criar orçamento!";
             }
         }
     }
 
+    // Função para listar os orçamentos
+    public function read($cliente_id = null) {
+        $orcamento = new Orcamento();
+        return $orcamento->read($cliente_id); // Chama o método de leitura da model, com possibilidade de filtrar por cliente
+    }
+
+    // Função para editar um orçamento existente
     public function edit($id) {
-        $orcamento = new Orcamento($this->db);
+        $orcamento = new Orcamento();
         $orcamento->id = $id;
-        $stmt = $orcamento->readOne(); // Lê o orçamento específico para editar
+        $orcamento->readOne();
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $orcamento->kwp = $_POST['kwp'];
@@ -66,25 +42,28 @@ class OrcamentoController {
             $orcamento->preco = $_POST['preco'];
 
             if ($orcamento->update()) {
-                header('Location: index.php?entity=orcamento&cliente_id=' . $orcamento->cliente_id);
+                // Redireciona para a lista de orçamentos do cliente
+                header('Location: index.php?entity=orcamento&cliente_id=' . $_POST['cliente_id']);
                 exit();
             } else {
-                echo 'Erro ao atualizar orçamento.';
+                echo "Erro ao atualizar orçamento!";
             }
         }
 
-        return $stmt->fetch(PDO::FETCH_ASSOC); // Retorna os dados do orçamento para preencher o formulário
+        return $orcamento;
     }
 
+    // Função para excluir um orçamento
     public function delete($id) {
-        $orcamento = new Orcamento($this->db);
+        $orcamento = new Orcamento();
         $orcamento->id = $id;
 
         if ($orcamento->delete()) {
+            // Redireciona para a lista de orçamentos
             header('Location: index.php?entity=orcamento');
             exit();
         } else {
-            echo 'Erro ao excluir orçamento.';
+            echo "Erro ao excluir orçamento!";
         }
     }
 }

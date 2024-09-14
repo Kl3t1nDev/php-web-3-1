@@ -98,7 +98,7 @@ $cliente_id = isset($_GET['cliente_id']) ? $_GET['cliente_id'] : null;
 
                         default:
                             if ($cliente_id) {
-                                $orcamentos = $orcamentoController->index($cliente_id);
+                                $orcamentos = $orcamentoController->read($cliente_id);
                                 include 'views/orcamento/index.php';
                             } else {
                                 echo '<div class="alert alert-warning" role="alert">Cliente não especificado para listar os orçamentos.</div>';
