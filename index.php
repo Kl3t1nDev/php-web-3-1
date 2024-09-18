@@ -1,13 +1,10 @@
 <?php
-require_once 'controllers/ClienteController.php';
-require_once 'controllers/OrcamentoController.php';
-require_once 'config/database.php';
+require_once 'Controllers/clienteController.php';
+require_once 'Controllers/orcamentoController.php';
 
 // Instanciar os controladores
-$database = new Database();
-$db = $database->getConnection();
-$clienteController = new ClienteController($db);
-$orcamentoController = new OrcamentoController($db);
+$clienteController = new ClienteController();
+$orcamentoController = new OrcamentoController();
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 $entity = isset($_GET['entity']) ? $_GET['entity'] : '';

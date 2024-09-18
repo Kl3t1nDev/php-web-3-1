@@ -20,7 +20,7 @@ class ClienteController {
 
     public function read() {
         $cliente = new Cliente();
-        return $cliente->read();
+        return $cliente->readAll();
     }
 
     public function edit($id) {

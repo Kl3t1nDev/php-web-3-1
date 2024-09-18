@@ -34,14 +34,14 @@
                 <?php if (!empty($clientes)) { ?>
                     <?php foreach ($clientes as $cliente) { ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($cliente['ID']); ?></td>
+                            <td><?php echo htmlspecialchars($cliente['id']); ?></td>
                             <td><?php echo htmlspecialchars($cliente['Nome']); ?></td>
                             <td><?php echo htmlspecialchars($cliente['CPF']); ?></td>
                             <td><?php echo htmlspecialchars($cliente['DataNascimento']); ?></td>
                             <td>
-                                <a href="index.php?entity=cliente&action=edit&id=<?php echo urlencode($cliente['ID']); ?>" class="btn btn-warning btn-sm">Editar</a>
-                                <a href="index.php?entity=cliente&action=delete&id=<?php echo urlencode($cliente['ID']); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
-                                <a href="index.php?entity=orcamento&cliente_id=<?php echo urlencode($cliente['ID']); ?>" class="btn btn-info btn-sm">Ver Orçamentos</a>
+                                <a href="index.php?entity=cliente&action=edit&id=<?php echo urlencode($cliente['id']); ?>" class="btn btn-warning btn-sm">Editar</a>
+                                <a href="index.php?entity=cliente&action=delete&id=<?php echo urlencode($cliente['id']); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                                <a href="index.php?entity=orcamento&cliente_id=<?php echo urlencode($cliente['id']); ?>" class="btn btn-info btn-sm">Ver Orçamentos</a>
                             </td>
                         </tr>
                     <?php } ?>

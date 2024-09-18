@@ -11,8 +11,8 @@ class Orcamento {
     public $instalacao;
     public $preco;
 
-    public function __construct($db) {
-        $this->db = $db;
+    public function __construct() {
+        $this->db = (new Database())->getConnection();
     }
 
     public function read($cliente_id) {

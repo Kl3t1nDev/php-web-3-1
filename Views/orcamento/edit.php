@@ -19,25 +19,26 @@
                         <!-- Verifique se o orçamento está definido -->
                         <?php if (isset($orcamento) && $orcamento): ?>
                             <form action="index.php?entity=orcamento&action=edit&id=<?php echo $orcamento->id; ?>" method="post">
+                                <input type="hidden" name="cliente_id" value="<?php echo htmlspecialchars($orcamento->cliente_id); ?>">
                                 <div class="mb-3">
                                     <label for="kwp" class="form-label">Kwp</label>
-                                    <input type="text" class="form-control" id="kwp" name="kwp" value="<?php echo htmlspecialchars($orcamento['kwp']); ?>" required>
+                                    <input type="text" class="form-control" id="kwp" name="kwp" value="<?php echo htmlspecialchars($orcamento->kwp); ?>" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="orientacao" class="form-label">Orientação</label>
-                                    <input type="text" class="form-control" id="orientacao" name="orientacao" value="<?php echo htmlspecialchars($orcamento['orientacao']); ?>" required>
+                                    <input type="text" class="form-control" id="orientacao" name="orientacao" value="<?php echo htmlspecialchars($orcamento->orientacao); ?>" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="instalacao" class="form-label">Instalação</label>
-                                    <input type="text" class="form-control" id="instalacao" name="instalacao" value="<?php echo htmlspecialchars($orcamento['instalacao']); ?>" required>
+                                    <input type="text" class="form-control" id="instalacao" name="instalacao" value="<?php echo htmlspecialchars($orcamento->instalacao); ?>" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="preco" class="form-label">Preço</label>
-                                    <input type="number" step="0.01" class="form-control" id="preco" name="preco" value="<?php echo htmlspecialchars($orcamento['preco']); ?>" required>
+                                    <input type="number" step="0.01" class="form-control" id="preco" name="preco" value="<?php echo htmlspecialchars($orcamento->preco); ?>" required>
                                 </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary">Atualizar Orçamento</button>
-                                    <a href="index.php?entity=orcamento&cliente_id=<?php echo htmlspecialchars($orcamento['cliente_id']); ?>" class="btn btn-secondary">Voltar</a>
+                                    <a href="index.php?entity=orcamento&cliente_id=<?php echo htmlspecialchars($orcamento->cliente_id); ?>" class="btn btn-secondary">Voltar</a>
                                 </div>
                             </form>
                         <?php else: ?>

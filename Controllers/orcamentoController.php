@@ -1,5 +1,5 @@
 <?php
-require_once 'models/Orcamento.php';
+require_once 'Models/orcamento.php';
 
 class OrcamentoController {
     
@@ -60,7 +60,7 @@ class OrcamentoController {
 
         if ($orcamento->delete()) {
             // Redireciona para a lista de orçamentos
-            header('Location: index.php?entity=orcamento');
+            header('Location: index.php?entity=orcamento&cliente_id='.$_GET['cliente_id']);
             exit();
         } else {
             echo "Erro ao excluir orçamento!";
